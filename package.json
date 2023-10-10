@@ -11,12 +11,16 @@
   "dependencies": {
     "@vitalets/google-translate-api": "^9.2.0",
     "cors": "^2.8.5",
+    "express-brute": "^1.0.1",
+    "express-brute-mongoose": "^1.1.0",
+    "mongoose": "^7.6.1",
     "next": "13.5.4",
     "react": "^18",
     "react-dom": "^18"
   },
   "devDependencies": {
     "@types/cors": "^2.8.14",
+    "@types/express-brute": "^1.0.3",
     "@types/node": "^20",
     "@types/react": "^18",
     "@types/react-dom": "^18",
