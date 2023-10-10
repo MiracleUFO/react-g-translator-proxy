@@ -7,20 +7,25 @@ function store() {
     process.env.MONGOOSE_CONNECTION_STRING
     && process.env.MONGOOSE_PASSWORD
   ) {
-    const uri = process.env.MONGOOSE_CONNECTION_STRING.replace(
-      '<password>',
-      encodeURIComponent(process.env.MONGOOSE_PASSWORD)
-    );
+      const uri = process.env.MONGOOSE_CONNECTION_STRING.replace(
+        '<password>',
+        encodeURIComponent(process.env.MONGOOSE_PASSWORD)
+      );
 
-    mongoose.connect(uri)
-    const model = mongoose.model(
-      'bruteforce',
-      new mongoose.Schema(BruteForceSchema)
-    );
+      return (
+        mongoose.connect(uri)
+        .then(() => {
+          const schema = new mongoose.Schema(BruteForceSchema);
+          const model = (
+            mongoose.models.Bruteforce
+            || mongoose.model('bruteforce', schema)
+          );
 
-    const store = new MongooseStore(model);
-    return store;
-  }
+          const store = new MongooseStore(model);
+          return store;
+        })
+      );
+    }
 }
 
 export default store();
