@@ -1,6 +1,6 @@
 import type { NextApiRequest, NextApiResponse } from 'next';
-import ExpressBruteForce from 'express-brute';
 import { translate } from '@vitalets/google-translate-api';
+import ExpressBruteForce from 'express-brute';
 
 import store from '@/lib/mongoose';
 import enableCorsMiddleware from '@/lib/cors';

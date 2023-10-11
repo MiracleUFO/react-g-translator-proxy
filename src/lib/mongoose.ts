@@ -16,13 +16,12 @@ function store() {
         mongoose.connect(uri)
         .then(() => {
           const schema = new mongoose.Schema(BruteForceSchema);
-          const model = (
-            mongoose.models.Bruteforce
-            || mongoose.model('bruteforce', schema)
-          );
-
-          const store = new MongooseStore(model);
-          return store;
+          if (schema) {
+            const model = mongoose.model('bruteforce', schema);
+  
+            const store = new MongooseStore(model);
+            return store;
+          }
         })
       );
     }
