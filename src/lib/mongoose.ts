@@ -1,30 +1,27 @@
 import mongoose from 'mongoose';
-import MongooseStore from 'express-brute-mongoose';
-import BruteForceSchema from 'express-brute-mongoose/dist/schema';
+import RequestCountNextSchema from '@/models/RequestCountNext';
+
 
 function store() {
   if (
-    process.env.MONGOOSE_CONNECTION_STRING
-    && process.env.MONGOOSE_PASSWORD
+    process.env.MONGOOSE_ATLAS_CONNECTION_STRING
+    && process.env.MONGOOSE_ATLAS_PASSWORD
   ) {
-      const uri = process.env.MONGOOSE_CONNECTION_STRING.replace(
+      const uri = process.env.MONGOOSE_ATLAS_CONNECTION_STRING.replace(
         '<password>',
-        encodeURIComponent(process.env.MONGOOSE_PASSWORD)
+        encodeURIComponent(process.env.MONGOOSE_ATLAS_PASSWORD)
       );
 
       return (
         mongoose.connect(uri)
-        .then(() => {
-          const schema = new mongoose.Schema(BruteForceSchema);
-          if (schema) {
-            const model = mongoose.model('bruteforce', schema);
-  
-            const store = new MongooseStore(model);
-            return store;
-          }
-        })
+          .then(() => {
+            if (RequestCountNextSchema) {
+              const model = mongoose.model('RequestCountNext', RequestCountNextSchema);
+              return model;
+            }
+          })
       );
     }
 }
 
-export default store();
+export default store;
